@@ -14,6 +14,5 @@ require 'td/config/default_values'
 
 module TD
   module Users
-    # Your code goes here...
   end
 end
