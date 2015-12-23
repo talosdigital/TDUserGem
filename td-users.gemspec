@@ -16,6 +16,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{This gem will allow you to wrap your application and make requests to
                           TDUser.}
   spec.homepage      = "https://github.com/talosdigital/TDUsersGem"
+  spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
                           f.match(%r{^(test|spec|features)/})

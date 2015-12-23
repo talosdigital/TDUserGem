@@ -1,41 +1,70 @@
-# Td::Users
+# TDUserGem
+#### *A Ruby wrapper for TDUser.*
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/td/users`. To experiment with that code, run `bin/console` for an interactive prompt.
+This ruby gem wraps the [TDUser] functionality, making its usage easier. You can improve your
+development performance by using this gem, because you will only have to handle with friendly
+methods that will do the hard work for you!
 
-TODO: Delete this and the text above, and describe your gem
+## Dependencies
+*TDUserGem* has the following dependencies:
+-  [httparty] 0.13.5
+-  [activesupport] 4.2.3
 
-## Installation
+## Including it in your project
 
-Add this line to your application's Gemfile:
+In order to use this gem in your application, add the following lines to your Gemfile:
 
 ```ruby
-gem 'td-users'
+gem 'td-users', git: 'https://github.com/talosdigital/TDUserGem.git'
 ```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
+## Setup
 
-    $ gem install td-users
+You are almost ready to use the gem. Before using any *TDUserGem* method you should perform some
+configurations as follows:
 
-## Usage
+- **base_url**: Base URL where your [TDUser] server is running.
+- **application_secret**: Your [TDUser] application secret (you can set it in the [TDUser] server
+  configuration)
+- **user_url**: Path where the *User* module is running *(default to '/api/v1/user')*
+- **auth_url**: Path where the *Auth* module is running *(default to '/api/v1/auth')*
 
-TODO: Write usage instructions here
+> Refer to the [configuration file](/lib/td/users/configuration.rb) to see all configurable keys.
 
-## Development
+*Example:* ``my_app/config/initializers/td_user_gem_config.rb``
+```ruby
+TD::Users.configure do |config|
+  config.base_url               = 'http://tduser.com:9001'
+  config.application_secret     = '0m6_7h15_15_v3ry_53cr37'
+end
+```
+## Usage examples
+For instance, if you want to create an **User**, you could use the following methods:
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake rspec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```ruby
+user = TD::Users::User.new(first_name: 'John',
+                           last_name: 'Smith',
+                           birth_date: '1995-01-01',
+                           email: 'john@smith.com')
+user.create
+```
+The above command lines are equivalent to:
+```ruby
+TD::Users::User.create(first_name: 'John',
+                       last_name: 'Smith',
+                       birth_date: '1995-01-01',
+                       email: 'john@smith.com')
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+There are multiple methods that could be used with an instance besides the class, for example,
+the *create* and *update* methods for **User**.
 
-## Contributing
+You can also run all methods using the *Ruby* console or by executing `bin/console`.
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/td-users. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
-
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
+[TDUser]: https://github.com/talosdigital/TDUser
+[httparty]: https://github.com/jnunemaker/httparty
+[activesupport]: https://rubygems.org/gems/activesupport/versions/4.2.3
